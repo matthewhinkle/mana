@@ -108,9 +108,30 @@ static XVisualInfo * get_visualInfo(mfwWindow * restrict w)
 static const unsigned long EVENT_MASK = ExposureMask | KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask;
 static const unsigned long VALUE_MASK =  CWBackPixel | CWBorderPixel | CWColormap | CWEventMask;
 
+static Display * openDisplay(char * name)
+{
+	int event = 0;
+	int error = 0;
+	int major = XkbMajorVersion;
+	int minor = XkbMinorVersion;
+	int reason = 0;
+	Display * d = XkbOpenDisplay(NULL, &event, &error, &major, &minor, &reason);
+	switch(reason) {
+	case XkbOD_Success: return d;
+	case XkbOD_BadLibraryVersion: ERROR("Failed to initialize Xkb: version incompatibility between compile and run-time Xlib/Xkb libraries.\n"); break;
+	case XkbOD_ConnectionRefused: ERROR("Failed to initialize Xkb: connection refused when attempting to open display.\n"); break;
+	case XkbOD_BadServerVersion: ERROR("Failed to initialize Xkb: incompatible Xkb extension version between library and server.\n"); break;
+	case XkbOD_NonXkbServer: WARN("Failed to initialize Xkb: server does not support Xkb.\n"); break;
+	default: WARN("Unknown XkbOpenDisplay reason [id = %d] encountered.\n", reason); break;
+	}
+
+	WARN("Falling back to core Xlib keyboard implemenation.\n");
+	return XOpenDisplay(name);
+}
+
 static void initWindow(mfwWindow * w, recti * frame)
 {
-	w->display = XOpenDisplay(NULL);
+	w->display = openDisplay(NULL);
 	assert(w->display);
 
 	w->screen = XDefaultScreen(w->display);
@@ -153,11 +174,6 @@ static void initWindow(mfwWindow * w, recti * frame)
 		VALUE_MASK,
 		&attr
 	);
-
-	//XModifierKeymap * modmap = XNewModifiermap(1);
-	//XInsertModifiermapEntry(modmap, XKeysymToKeycode(w->display, XK_Control_L), ControlMask);
-	//XSetModifierMapping(w->display, modmap);
-	XSetLocaleModifiers(NULL);
 }
 
 static const uint8_t PROPERTY_FORMAT_SIZE_8 = 8;

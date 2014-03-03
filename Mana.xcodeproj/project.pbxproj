@@ -50,9 +50,6 @@
 		4843486F18C2542E004B1225 /* xcb-event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "xcb-event.c"; sourceTree = "<group>"; };
 		4843487318C26504004B1225 /* libxcb-keysyms.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libxcb-keysyms.1.dylib"; path = "/opt/X11/lib/libxcb-keysyms.1.dylib"; sourceTree = "<absolute>"; };
 		484618C818382CE2003E5DB8 /* libMana.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libMana.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
-		484618D018382D0C003E5DB8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = Mana/.gitignore; sourceTree = "<group>"; };
-		484618D118382D0C003E5DB8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = Mana/LICENSE; sourceTree = "<group>"; };
-		484618D218382D0C003E5DB8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = Mana/README.md; sourceTree = "<group>"; };
 		484618D618382D4E003E5DB8 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
 		48461920183847EC003E5DB8 /* libCommon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCommon.dylib; path = "../../../../Library/Developer/Xcode/DerivedData/Hel-gjoljfgfdgogqccjgqeapuumujpq/Build/Products/Debug/libCommon.dylib"; sourceTree = "<group>"; };
 		485D37FF18BC850F008A773B /* x-event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "x-event.c"; sourceTree = "<group>"; };
@@ -158,9 +155,6 @@
 		484618D318382D11003E5DB8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				484618D018382D0C003E5DB8 /* .gitignore */,
-				484618D118382D0C003E5DB8 /* LICENSE */,
-				484618D218382D0C003E5DB8 /* README.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

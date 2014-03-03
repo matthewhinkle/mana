@@ -52,14 +52,16 @@ static inline mfwButton makeButton(XButtonEvent * x) {
 }
 
 static inline void mapKeyPressEvent(struct mfwWindow * restrict window, XKeyEvent * x, mfwEvent * restrict e) {
-	const KeySym sym = XLookupKeysym(x, x->state);
+	KeySym sym = 0;
+	XkbLookupKeySym(window->display, x->keycode, x->state, NULL, &sym);
 	const mfwKey key = makeKey((unsigned)sym);
 	const mfwMod mod = makeMod(x->state);
 	*e = mfwMakeKeyPressEvent(key, mod, x->x, x->y, window, (uint64_t)x->time);
 }
 
 static inline void mapKeyReleaseEvent(struct mfwWindow * restrict window, XKeyEvent * restrict x, mfwEvent * restrict e) {
-	const KeySym sym = XLookupKeysym(x, x->state);
+	KeySym sym = 0;
+	XkbLookupKeySym(window->display, x->keycode, x->state, NULL, &sym);
 	const mfwKey key = makeKey((unsigned)sym);
 	const mfwMod mod = makeMod(x->state);
 	*e = mfwMakeKeyReleaseEvent(key, mod, x->x, x->y, window, (uint64_t)x->time);
