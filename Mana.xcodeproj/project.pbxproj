@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		481957AA183B3BFC00953F51 /* xcb-window.c in Sources */ = {isa = PBXBuildFile; fileRef = 481957A8183B3BFC00953F51 /* xcb-window.c */; };
+		481957AB183B3BFC00953F51 /* xcb-window.h in Headers */ = {isa = PBXBuildFile; fileRef = 481957A9183B3BFC00953F51 /* xcb-window.h */; };
+		481B14B918BC5A2B00FDBD47 /* window-incl.h in Headers */ = {isa = PBXBuildFile; fileRef = 481B14B718BC5A2B00FDBD47 /* window-incl.h */; };
+		481EF2AD18BEF6E800CB2337 /* input.h in Headers */ = {isa = PBXBuildFile; fileRef = 481EF2AB18BEF6E800CB2337 /* input.h */; };
+		483C970318B71B6900C13119 /* event.h in Headers */ = {isa = PBXBuildFile; fileRef = 483C970118B71B6900C13119 /* event.h */; };
+		483D754118A6F45600AB4990 /* cocoa-window.h in Headers */ = {isa = PBXBuildFile; fileRef = 483D753F18A6F45600AB4990 /* cocoa-window.h */; };
+		483D754218A6F45600AB4990 /* cocoa-window.m in Sources */ = {isa = PBXBuildFile; fileRef = 483D754018A6F45600AB4990 /* cocoa-window.m */; };
+		484052D818B84AA0006F31D5 /* event.c in Sources */ = {isa = PBXBuildFile; fileRef = 484052D718B84AA0006F31D5 /* event.c */; };
+		4843487118C2542E004B1225 /* xcb-event.c in Sources */ = {isa = PBXBuildFile; fileRef = 4843486F18C2542E004B1225 /* xcb-event.c */; };
+		4843487418C26504004B1225 /* libxcb-keysyms.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4843487318C26504004B1225 /* libxcb-keysyms.1.dylib */; };
+		484618D718382D4E003E5DB8 /* window.h in Headers */ = {isa = PBXBuildFile; fileRef = 484618D618382D4E003E5DB8 /* window.h */; };
+		48461921183847EC003E5DB8 /* libCommon.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48461920183847EC003E5DB8 /* libCommon.dylib */; };
+		485D380018BC850F008A773B /* x-event.c in Sources */ = {isa = PBXBuildFile; fileRef = 485D37FF18BC850F008A773B /* x-event.c */; };
+		485D4FBA1853EA1400B6D8FE /* x-window.c in Sources */ = {isa = PBXBuildFile; fileRef = 485D4FB81853EA1400B6D8FE /* x-window.c */; };
+		485D4FBB1853EA1400B6D8FE /* x-window.h in Headers */ = {isa = PBXBuildFile; fileRef = 485D4FB91853EA1400B6D8FE /* x-window.h */; };
+		486002F5184DBF6900F86261 /* libxcb.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 486002F4184DBF6900F86261 /* libxcb.1.dylib */; };
+		486002F7184DC5BC00F86261 /* libX11-xcb.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 486002F6184DC5BC00F86261 /* libX11-xcb.1.dylib */; };
+		486002F9184DC5EE00F86261 /* libGL.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 486002F8184DC5EE00F86261 /* libGL.1.dylib */; };
+		4883B75D1839A114001FDA24 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4883B75C1839A114001FDA24 /* Cocoa.framework */; };
+		4883B75F1839A11D001FDA24 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4883B75E1839A11D001FDA24 /* QuartzCore.framework */; };
+		4883B7611839A125001FDA24 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4883B7601839A125001FDA24 /* OpenGL.framework */; };
+		48B3856418C2A9A2000E7E48 /* cocoa-event.m in Sources */ = {isa = PBXBuildFile; fileRef = 48B3856218C2A9A2000E7E48 /* cocoa-event.m */; };
+		48B3856618C2B2AF000E7E48 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B3856518C2B2AF000E7E48 /* Carbon.framework */; };
+		48BE0981184B4B0F000D7212 /* libXext.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48BE0980184B4B0F000D7212 /* libXext.6.dylib */; };
+		48DAA52718C1BFD30037935D /* x-key.c in Sources */ = {isa = PBXBuildFile; fileRef = 48DAA52518C1BFD30037935D /* x-key.c */; };
+		48DAA52818C1BFD30037935D /* x-key.h in Headers */ = {isa = PBXBuildFile; fileRef = 48DAA52618C1BFD30037935D /* x-key.h */; };
+		48E1DE131849D623001EB395 /* libX11.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 48E1DE121849D623001EB395 /* libX11.6.dylib */; };
+		48F321E81839D82200C6E272 /* gl.h in Headers */ = {isa = PBXBuildFile; fileRef = 48F321E61839D82200C6E272 /* gl.h */; };
+		48F321F21839D9E100C6E272 /* gl-context.h in Headers */ = {isa = PBXBuildFile; fileRef = 48F321F01839D9E100C6E272 /* gl-context.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		481957A8183B3BFC00953F51 /* xcb-window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "xcb-window.c"; sourceTree = "<group>"; };
+		481957A9183B3BFC00953F51 /* xcb-window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "xcb-window.h"; sourceTree = "<group>"; };
+		481B14B718BC5A2B00FDBD47 /* window-incl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "window-incl.h"; sourceTree = "<group>"; };
+		481EF2AB18BEF6E800CB2337 /* input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		483C970118B71B6900C13119 /* event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = event.h; sourceTree = "<group>"; };
+		483D753F18A6F45600AB4990 /* cocoa-window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "cocoa-window.h"; sourceTree = "<group>"; };
+		483D754018A6F45600AB4990 /* cocoa-window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "cocoa-window.m"; sourceTree = "<group>"; };
+		484052D718B84AA0006F31D5 /* event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = event.c; sourceTree = "<group>"; };
+		4843486F18C2542E004B1225 /* xcb-event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "xcb-event.c"; sourceTree = "<group>"; };
+		4843487318C26504004B1225 /* libxcb-keysyms.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libxcb-keysyms.1.dylib"; path = "/opt/X11/lib/libxcb-keysyms.1.dylib"; sourceTree = "<absolute>"; };
+		484618C818382CE2003E5DB8 /* libMana.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libMana.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		484618D018382D0C003E5DB8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = Mana/.gitignore; sourceTree = "<group>"; };
+		484618D118382D0C003E5DB8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = Mana/LICENSE; sourceTree = "<group>"; };
+		484618D218382D0C003E5DB8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = Mana/README.md; sourceTree = "<group>"; };
+		484618D618382D4E003E5DB8 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		48461920183847EC003E5DB8 /* libCommon.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCommon.dylib; path = "../../../../Library/Developer/Xcode/DerivedData/Hel-gjoljfgfdgogqccjgqeapuumujpq/Build/Products/Debug/libCommon.dylib"; sourceTree = "<group>"; };
+		485D37FF18BC850F008A773B /* x-event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "x-event.c"; sourceTree = "<group>"; };
+		485D4FB81853EA1400B6D8FE /* x-window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "x-window.c"; sourceTree = "<group>"; };
+		485D4FB91853EA1400B6D8FE /* x-window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "x-window.h"; sourceTree = "<group>"; };
+		486002F4184DBF6900F86261 /* libxcb.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxcb.1.dylib; path = /opt/X11/lib/libxcb.1.dylib; sourceTree = "<absolute>"; };
+		486002F6184DC5BC00F86261 /* libX11-xcb.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libX11-xcb.1.dylib"; path = "/opt/X11/lib/libX11-xcb.1.dylib"; sourceTree = "<absolute>"; };
+		486002F8184DC5EE00F86261 /* libGL.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGL.1.dylib; path = /opt/X11/lib/libGL.1.dylib; sourceTree = "<absolute>"; };
+		4883B75C1839A114001FDA24 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		4883B75E1839A11D001FDA24 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4883B7601839A125001FDA24 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		48B3856218C2A9A2000E7E48 /* cocoa-event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "cocoa-event.m"; sourceTree = "<group>"; };
+		48B3856518C2B2AF000E7E48 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		48BE0980184B4B0F000D7212 /* libXext.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libXext.6.dylib; path = /opt/X11/lib/libXext.6.dylib; sourceTree = "<absolute>"; };
+		48DAA52518C1BFD30037935D /* x-key.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "x-key.c"; sourceTree = "<group>"; };
+		48DAA52618C1BFD30037935D /* x-key.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "x-key.h"; sourceTree = "<group>"; };
+		48E1DE121849D623001EB395 /* libX11.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libX11.6.dylib; path = /usr/X11/lib/libX11.6.dylib; sourceTree = "<absolute>"; };
+		48F321E61839D82200C6E272 /* gl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl.h; sourceTree = "<group>"; };
+		48F321F01839D9E100C6E272 /* gl-context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gl-context.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		484618C518382CE2003E5DB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4843487418C26504004B1225 /* libxcb-keysyms.1.dylib in Frameworks */,
+				486002F9184DC5EE00F86261 /* libGL.1.dylib in Frameworks */,
+				486002F7184DC5BC00F86261 /* libX11-xcb.1.dylib in Frameworks */,
+				486002F5184DBF6900F86261 /* libxcb.1.dylib in Frameworks */,
+				48BE0981184B4B0F000D7212 /* libXext.6.dylib in Frameworks */,
+				48E1DE131849D623001EB395 /* libX11.6.dylib in Frameworks */,
+				48B3856618C2B2AF000E7E48 /* Carbon.framework in Frameworks */,
+				4883B7611839A125001FDA24 /* OpenGL.framework in Frameworks */,
+				4883B75F1839A11D001FDA24 /* QuartzCore.framework in Frameworks */,
+				4883B75D1839A114001FDA24 /* Cocoa.framework in Frameworks */,
+				48461921183847EC003E5DB8 /* libCommon.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		481957A7183B3BDF00953F51 /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				485D4FB81853EA1400B6D8FE /* x-window.c */,
+				485D4FB91853EA1400B6D8FE /* x-window.h */,
+				481957A8183B3BFC00953F51 /* xcb-window.c */,
+				481957A9183B3BFC00953F51 /* xcb-window.h */,
+				483D753F18A6F45600AB4990 /* cocoa-window.h */,
+				483D754018A6F45600AB4990 /* cocoa-window.m */,
+				481B14B718BC5A2B00FDBD47 /* window-incl.h */,
+			);
+			name = Window;
+			sourceTree = "<group>";
+		};
+		481B14AD18BC580C00FDBD47 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				485D37FF18BC850F008A773B /* x-event.c */,
+				48DAA52518C1BFD30037935D /* x-key.c */,
+				48DAA52618C1BFD30037935D /* x-key.h */,
+				4843486F18C2542E004B1225 /* xcb-event.c */,
+				48B3856218C2A9A2000E7E48 /* cocoa-event.m */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
+		484618BF18382CE2003E5DB8 = {
+			isa = PBXGroup;
+			children = (
+				484618CF18382D0C003E5DB8 /* Mana */,
+				484618D318382D11003E5DB8 /* Supporting Files */,
+				484619241838481C003E5DB8 /* Libraries & Frameworks */,
+				484618C918382CE2003E5DB8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		484618C918382CE2003E5DB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				484618C818382CE2003E5DB8 /* libMana.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		484618CF18382D0C003E5DB8 /* Mana */ = {
+			isa = PBXGroup;
+			children = (
+				481B14AD18BC580C00FDBD47 /* Event */,
+				481957A7183B3BDF00953F51 /* Window */,
+				484052D718B84AA0006F31D5 /* event.c */,
+				483C970118B71B6900C13119 /* event.h */,
+				48F321E61839D82200C6E272 /* gl.h */,
+				48F321F01839D9E100C6E272 /* gl-context.h */,
+				484618D618382D4E003E5DB8 /* window.h */,
+				481EF2AB18BEF6E800CB2337 /* input.h */,
+			);
+			path = Mana;
+			sourceTree = "<group>";
+		};
+		484618D318382D11003E5DB8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				484618D018382D0C003E5DB8 /* .gitignore */,
+				484618D118382D0C003E5DB8 /* LICENSE */,
+				484618D218382D0C003E5DB8 /* README.md */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		484619241838481C003E5DB8 /* Libraries & Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				48664F0118C3B1370057D45B /* X11 */,
+				48664F0018C3B12B0057D45B /* Mac OS X */,
+				4883B7601839A125001FDA24 /* OpenGL.framework */,
+				48461920183847EC003E5DB8 /* libCommon.dylib */,
+			);
+			name = "Libraries & Frameworks";
+			sourceTree = "<group>";
+		};
+		48664F0018C3B12B0057D45B /* Mac OS X */ = {
+			isa = PBXGroup;
+			children = (
+				4883B75E1839A11D001FDA24 /* QuartzCore.framework */,
+				4883B75C1839A114001FDA24 /* Cocoa.framework */,
+				48B3856518C2B2AF000E7E48 /* Carbon.framework */,
+			);
+			name = "Mac OS X";
+			sourceTree = "<group>";
+		};
+		48664F0118C3B1370057D45B /* X11 */ = {
+			isa = PBXGroup;
+			children = (
+				4843487318C26504004B1225 /* libxcb-keysyms.1.dylib */,
+				486002F8184DC5EE00F86261 /* libGL.1.dylib */,
+				486002F6184DC5BC00F86261 /* libX11-xcb.1.dylib */,
+				486002F4184DBF6900F86261 /* libxcb.1.dylib */,
+				48BE0980184B4B0F000D7212 /* libXext.6.dylib */,
+				48E1DE121849D623001EB395 /* libX11.6.dylib */,
+			);
+			name = X11;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		484618C618382CE2003E5DB8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				485D4FBB1853EA1400B6D8FE /* x-window.h in Headers */,
+				481B14B918BC5A2B00FDBD47 /* window-incl.h in Headers */,
+				48F321E81839D82200C6E272 /* gl.h in Headers */,
+				484618D718382D4E003E5DB8 /* window.h in Headers */,
+				483C970318B71B6900C13119 /* event.h in Headers */,
+				48DAA52818C1BFD30037935D /* x-key.h in Headers */,
+				48F321F21839D9E100C6E272 /* gl-context.h in Headers */,
+				481EF2AD18BEF6E800CB2337 /* input.h in Headers */,
+				481957AB183B3BFC00953F51 /* xcb-window.h in Headers */,
+				483D754118A6F45600AB4990 /* cocoa-window.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		484618C718382CE2003E5DB8 /* Mana */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 484618CC18382CE2003E5DB8 /* Build configuration list for PBXNativeTarget "Mana" */;
+			buildPhases = (
+				484618C418382CE2003E5DB8 /* Sources */,
+				484618C518382CE2003E5DB8 /* Frameworks */,
+				484618C618382CE2003E5DB8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mana;
+			productName = Mana;
+			productReference = 484618C818382CE2003E5DB8 /* libMana.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		484618C018382CE2003E5DB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Matthew Hinkle";
+			};
+			buildConfigurationList = 484618C318382CE2003E5DB8 /* Build configuration list for PBXProject "Mana" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 484618BF18382CE2003E5DB8;
+			productRefGroup = 484618C918382CE2003E5DB8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				484618C718382CE2003E5DB8 /* Mana */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		484618C418382CE2003E5DB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4843487118C2542E004B1225 /* xcb-event.c in Sources */,
+				484052D818B84AA0006F31D5 /* event.c in Sources */,
+				485D4FBA1853EA1400B6D8FE /* x-window.c in Sources */,
+				485D380018BC850F008A773B /* x-event.c in Sources */,
+				48B3856418C2A9A2000E7E48 /* cocoa-event.m in Sources */,
+				481957AA183B3BFC00953F51 /* xcb-window.c in Sources */,
+				48DAA52718C1BFD30037935D /* x-key.c in Sources */,
+				483D754218A6F45600AB4990 /* cocoa-window.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		484618CA18382CE2003E5DB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		484618CB18382CE2003E5DB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		484618CD18382CE2003E5DB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/X11/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Hel-gjoljfgfdgogqccjgqeapuumujpq/Build/Products/Debug",
+					/opt/X11/include,
+					/usr/X11/lib,
+					/opt/X11/lib,
+				);
+				OTHER_CFLAGS = "-DMANA_USE_X11";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../Common";
+			};
+			name = Debug;
+		};
+		484618CE18382CE2003E5DB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/opt/X11/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/Hel-gjoljfgfdgogqccjgqeapuumujpq/Build/Products/Debug",
+					/opt/X11/include,
+					/usr/X11/lib,
+					/opt/X11/lib,
+				);
+				OTHER_CFLAGS = "-DMANA_USE_X11";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../Common";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		484618C318382CE2003E5DB8 /* Build configuration list for PBXProject "Mana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				484618CA18382CE2003E5DB8 /* Debug */,
+				484618CB18382CE2003E5DB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		484618CC18382CE2003E5DB8 /* Build configuration list for PBXNativeTarget "Mana" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				484618CD18382CE2003E5DB8 /* Debug */,
+				484618CE18382CE2003E5DB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 484618C018382CE2003E5DB8 /* Project object */;
+}
