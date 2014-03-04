@@ -12,7 +12,7 @@
 
 /* GLContext X11-XCB impl */
 
-extern void mfwInitGLContext(mfwGLContext * c, mfwWindow * w)
+extern void mfwInitGLContext(mfwGLContext * restrict c, mfwWindow * restrict w)
 {
 	assert(c);
 	assert(w);
@@ -25,7 +25,7 @@ extern void mfwInitGLContext(mfwGLContext * c, mfwWindow * w)
 	c->native = glXCreateNewContext(c->display, w->fbConfig, GLX_RGBA_TYPE, 0, True);
 }
 
-extern void mfwDestroyGLContext(mfwGLContext * c)
+extern void mfwDestroyGLContext(mfwGLContext * restrict c)
 {
 	if(!(c)) return;
 
@@ -35,7 +35,7 @@ extern void mfwDestroyGLContext(mfwGLContext * c)
 	}
 }
 
-extern mfwGLContext * mfwNewGLContext(mfwWindow * w)
+extern mfwGLContext * mfwNewGLContext(mfwWindow * restrict w)
 {
 	assert(w);
 
@@ -46,7 +46,7 @@ extern mfwGLContext * mfwNewGLContext(mfwWindow * w)
 	return c;
 }
 
-extern void mfwDeleteGLContext(mfwGLContext * c)
+extern void mfwDeleteGLContext(mfwGLContext * restrict c)
 {
 	if(!(c)) return;
 
@@ -54,14 +54,14 @@ extern void mfwDeleteGLContext(mfwGLContext * c)
 	free(c);
 }
 
-extern const void * mfwGLContext_getNativeContext(mfwGLContext * c)
+extern const void * mfwGLContext_getNativeContext(mfwGLContext * restrict c)
 {
 	assert(c);
 
 	return c->native;
 }
 
-extern void mfwGLContext_makeCurrent(mfwGLContext * c)
+extern void mfwGLContext_makeCurrent(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -71,7 +71,7 @@ extern void mfwGLContext_makeCurrent(mfwGLContext * c)
 	glXMakeContextCurrent(c->display, c->drawable, c->drawable, c->native);
 }
 
-extern void mfwGLContext_swapBuffers(mfwGLContext * c)
+extern void mfwGLContext_swapBuffers(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -80,7 +80,7 @@ extern void mfwGLContext_swapBuffers(mfwGLContext * c)
 	glXSwapBuffers(c->display, c->drawable);
 }
 
-extern void mfwGLContext_lock(mfwGLContext * c)
+extern void mfwGLContext_lock(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -88,7 +88,7 @@ extern void mfwGLContext_lock(mfwGLContext * c)
 	XLockDisplay(c->display);
 }
 
-extern void mfwGLContext_unlock(mfwGLContext * c)
+extern void mfwGLContext_unlock(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -102,7 +102,7 @@ static const uint8_t PROPERTY_FORMAT_SIZE_8 = 8;
 static const uint8_t PROPERTY_FORMAT_SIZE_32 = 32;
 static const uint32_t MAX_TITLE_LEN = 128;
 
-extern void mfwWindow_setTitle(mfwWindow * w, const char * title)
+extern void mfwWindow_setTitle(mfwWindow * restrict w, const char * restrict title)
 {
 	assert(w);
 
@@ -149,7 +149,7 @@ static const uint32_t EVENT_MASK = XCB_EVENT_MASK_EXPOSURE
 static const uint32_t VALUE_MASK = XCB_CW_EVENT_MASK
                                  | XCB_CW_COLORMAP;
 
-static void initWindow(mfwWindow * w, const recti * frame)
+static void initWindow(mfwWindow * restrict w, const recti * restrict frame)
 {
 	w->xcb = XGetXCBConnection(w->display);
 	assert(w->xcb);
@@ -204,7 +204,7 @@ static void initWindow(mfwWindow * w, const recti * frame)
 	assert(w->keysyms);
 }
 
-extern void mfwWindow_setFrame(mfwWindow * w, recti frame)
+extern void mfwWindow_setFrame(mfwWindow * restrict w, recti frame)
 {
 	assert(w);
 
@@ -219,7 +219,7 @@ extern void mfwWindow_setFrame(mfwWindow * w, recti frame)
 	xcb_flush(w->xcb);
 }
 
-extern void mfwInitWindow(mfwWindow * w, const char * title, recti frame)
+extern void mfwInitWindow(mfwWindow * restrict w, const char * restrict title, recti frame)
 {
 	assert(w);
 
@@ -246,7 +246,7 @@ enum {
 static const char _NET_WM_STATE[] = "_NET_WM_STATE";
 static const char _NET_WM_STATE_FULLSCREEN[] = "_NET_WM_STATE_FULLSCREEN";
 
-static void mfwWindow_setFullscreen_internal(mfwWindow * w) {
+static void mfwWindow_setFullscreen_internal(mfwWindow * restrict w) {
 	assert(w);
 
 	xcb_intern_atom_cookie_t state = xcb_intern_atom(w->xcb, 0, strlen(_NET_WM_STATE), _NET_WM_STATE);
@@ -266,7 +266,7 @@ static void mfwWindow_setFullscreen_internal(mfwWindow * w) {
 	xcb_flush(w->xcb);
 }
 
-extern void mfwInitWindowFullscreen(mfwWindow * w)
+extern void mfwInitWindowFullscreen(mfwWindow * restrict w)
 {
 	assert(w);
 
@@ -279,7 +279,7 @@ extern void mfwInitWindowFullscreen(mfwWindow * w)
 	mfwWindow_setFullscreen_internal(w);
 }
 
-extern void mfwDestroyWindow(mfwWindow * w)
+extern void mfwDestroyWindow(mfwWindow * restrict w)
 {
 	if(!w) return;
 
@@ -317,7 +317,7 @@ extern mfwWindow * mfwNewWindowFullscreen()
 	return w;
 }
 
-extern void mfwDeleteWindow(mfwWindow * w)
+extern void mfwDeleteWindow(mfwWindow * restrict w)
 {
 	if(!w) return;
 
@@ -325,14 +325,14 @@ extern void mfwDeleteWindow(mfwWindow * w)
 	free(w);
 }
 
-extern recti mfwWindow_getFrame(const mfwWindow * w)
+extern recti mfwWindow_getFrame(const mfwWindow * restrict w)
 {
 	assert(w);
 
 	return w->frame;
 }
 
-extern void mfwWindow_setFullscreen(mfwWindow * w, int fullscreen)
+extern void mfwWindow_setFullscreen(mfwWindow * restrict w, int fullscreen)
 {
 	assert(w);
 	assert(w->xcb);
@@ -365,7 +365,7 @@ extern void mfwWindow_setFullscreen(mfwWindow * w, int fullscreen)
 	xcb_flush(w->xcb);
 }
 
-extern void mfwWindow_bringToFront(mfwWindow * w)
+extern void mfwWindow_bringToFront(mfwWindow * restrict w)
 {
 	assert(w);
 	assert(w->xcb);
@@ -375,6 +375,6 @@ extern void mfwWindow_bringToFront(mfwWindow * w)
 	xcb_configure_window(w->xcb, w->window, XCB_CONFIG_WINDOW_STACK_MODE, values);
 }
 
-extern void mfwWindow_update(mfwWindow * w) { }
+extern void mfwWindow_update(mfwWindow * restrict w) { }
 
 #endif

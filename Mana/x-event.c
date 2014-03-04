@@ -38,7 +38,7 @@ static inline mfwMod makeMod(unsigned state) {
 	return mod;
 }
 
-static inline mfwButton makeButton(XButtonEvent * x) {
+static inline mfwButton makeButton(XButtonEvent * restrict x) {
 	if(!x) return Mouse_Nil;
 
 	switch(x->button) {
@@ -51,7 +51,7 @@ static inline mfwButton makeButton(XButtonEvent * x) {
 	}
 }
 
-static inline void mapKeyPressEvent(struct mfwWindow * restrict window, XKeyEvent * x, mfwEvent * restrict e) {
+static inline void mapKeyPressEvent(struct mfwWindow * restrict window, XKeyEvent * restrict x, mfwEvent * restrict e) {
 	KeySym sym = 0;
 	XkbLookupKeySym(window->display, x->keycode, x->state, NULL, &sym);
 	const mfwKey key = makeKey((unsigned)sym);
@@ -65,6 +65,11 @@ static inline void mapKeyReleaseEvent(struct mfwWindow * restrict window, XKeyEv
 	const mfwKey key = makeKey((unsigned)sym);
 	const mfwMod mod = makeMod(x->state);
 	*e = mfwMakeKeyReleaseEvent(key, mod, x->x, x->y, window, (uint64_t)x->time);
+}
+
+static inline void mapMouseMotionEvent(struct mfwWindow * restrict window, XMotionEvent * restrict x, mfwEvent * e) {
+	const mfwMod mod = makeMod(x->state);
+	*e = mfwMakeMouseMotionEvent(x->x, x->y, mod, window, (uint64_t)x->time);
 }
 
 static const int MOUSE_SCROLL_UP = 1;
@@ -100,17 +105,38 @@ static inline void mapMouseReleaseEvent(struct mfwWindow * restrict window, XBut
 	*e = mfwMakeMouseReleaseEvent(x->x, x->y, mod, button, window, (uint64_t)x->time);
 }
 
-static int mapEvent(struct mfwWindow * restrict window, XEvent * x, mfwEvent * restrict e)
+static inline void mapWindowCreateEvent(struct mfwWindow * restrict window, XCreateWindowEvent * restrict x, mfwEvent * restrict e) {
+	*e = mfwMakeWindowCreateEvent(window);
+}
+
+static inline void mapWindowExposeEvent(struct mfwWindow * restrict window, XExposeEvent * restrict x, mfwEvent * restrict e) {
+	*e = mfwMakeWindowExposeEvent(window);
+}
+
+static inline void mapWindowConfigureEvent(struct mfwWindow * restrict window, XConfigureEvent * restrict x, mfwEvent * restrict e) {
+	*e = mfwMakeWindowConfigureEvent(x->x, x->y, x->width, x->height, window);
+}
+
+static inline void mapWindowExitEvent(struct mfwWindow * restrict window, XDestroyWindowEvent * restrict x, mfwEvent * restrict e) {
+	*e = mfwMakeWindowExitEvent(window);
+}
+
+static int mapEvent(struct mfwWindow * restrict window, XEvent * restrict x, mfwEvent * restrict e)
 {
 	assert(window);
 
 	if(!(x && e)) return 0;
 
 	switch(x->type) {
+	case MotionNotify: mapMouseMotionEvent(window, &x->xmotion, e); return 1;
 	case KeyPress: mapKeyPressEvent(window, &x->xkey, e); return 1;
-	case KeyRelease: mapKeyPressEvent(window, &x->xkey, e); return 1;
+	case KeyRelease: mapKeyReleaseEvent(window, &x->xkey, e); return 1;
 	case ButtonPress: mapMousePressEvent(window, &x->xbutton, e); return 1;
 	case ButtonRelease: mapMouseReleaseEvent(window, &x->xbutton, e); return 1;
+	case CreateNotify: mapWindowCreateEvent(window, &x->xcreatewindow, e); return 1;
+	case Expose: mapWindowExposeEvent(window, &x->xexpose, e); return 1;
+	case ConfigureNotify: mapWindowConfigureEvent(window, &x->xconfigure, e); return 1;
+	case DestroyNotify: mapWindowExitEvent(window, &x->xdestroywindow, e); return 1;
 	default: *e = mfwMakeUnknownEvent(); return 0;
 	}
 }
@@ -130,7 +156,7 @@ static void handleInternalEvent(XEvent * restrict x)
 	}
 }
 
-extern int mfwEvent_next(struct mfwWindow * window, mfwEvent * event)
+extern int mfwEvent_next(struct mfwWindow * restrict window, mfwEvent * restrict event)
 {
 	assert(window);
 	assert(window->display);
@@ -152,7 +178,7 @@ extern int mfwEvent_next(struct mfwWindow * window, mfwEvent * event)
 	return 0;
 }
 
-extern int mfwEvent_peek(struct mfwWindow * window, mfwEvent * event)
+extern int mfwEvent_peek(struct mfwWindow * restrict window, mfwEvent * restrict event)
 {
 	assert(window);
 

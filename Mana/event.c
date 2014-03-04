@@ -21,7 +21,7 @@ extern mfwEvent mfwMakeNoEvent()
 	return e;
 }
 
-extern mfwEvent mfwMakeKeyPressEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * window, uint64_t timestamp)
+extern mfwEvent mfwMakeKeyPressEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * restrict window, uint64_t timestamp)
 {
 	mfwKeyPressEvent keyPress;
 	keyPress.type = Event_KeyPress;
@@ -38,7 +38,7 @@ extern mfwEvent mfwMakeKeyPressEvent(mfwKey key, mfwMod modifiers, int32_t x, in
 	return e;
 }
 
-extern mfwEvent mfwMakeKeyReleaseEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * window, uint64_t timestamp)
+extern mfwEvent mfwMakeKeyReleaseEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * restrict window, uint64_t timestamp)
 {
 	mfwKeyReleaseEvent keyRelease;
 	keyRelease.type = Event_KeyRelease;
@@ -55,7 +55,22 @@ extern mfwEvent mfwMakeKeyReleaseEvent(mfwKey key, mfwMod modifiers, int32_t x, 
 	return e;
 }
 
-extern mfwEvent mfwMakeMousePressEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * window, uint64_t timestamp)
+extern mfwEvent mfwMakeMouseMotionEvent(int32_t x, int32_t y, mfwMod modifiers, struct mfwWindow * restrict window, uint64_t timestamp)
+{
+	mfwMouseMotionEvent mouseMotion;
+	mouseMotion.type = Event_MouseMotion;
+	mouseMotion.timestamp = timestamp;
+
+	mouseMotion.x = x;
+	mouseMotion.y = y;
+	mouseMotion.window = window;
+
+	mfwEvent e;
+	e.mouseMotion = mouseMotion;
+	return e;
+}
+
+extern mfwEvent mfwMakeMousePressEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * restrict window, uint64_t timestamp)
 {
 	mfwMousePressEvent mousePress;
 	mousePress.type = Event_MousePress;
@@ -72,7 +87,7 @@ extern mfwEvent mfwMakeMousePressEvent(int32_t x, int32_t y, mfwMod modifiers, m
 	return e;
 }
 
-extern mfwEvent mfwMakeMouseReleaseEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * window, uint64_t timestamp)
+extern mfwEvent mfwMakeMouseReleaseEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * restrict window, uint64_t timestamp)
 {
 	mfwMouseReleaseEvent mouseRelease;
 	mouseRelease.type = Event_MouseRelease;
@@ -89,7 +104,7 @@ extern mfwEvent mfwMakeMouseReleaseEvent(int32_t x, int32_t y, mfwMod modifiers,
 	return e;
 }
 
-extern mfwEvent mfwMakeMouseScrollEvent(mfwMod modifiers, int xDelta, int yDelta, int zDelta, struct mfwWindow * window, uint64_t timestamp)
+extern mfwEvent mfwMakeMouseScrollEvent(mfwMod modifiers, int xDelta, int yDelta, int zDelta, struct mfwWindow * restrict window, uint64_t timestamp)
 {
 	mfwMouseScrollEvent mouseScroll;
 	mouseScroll.type = Event_MouseScroll;
@@ -106,7 +121,59 @@ extern mfwEvent mfwMakeMouseScrollEvent(mfwMod modifiers, int xDelta, int yDelta
 	return e;
 }
 
-extern mfwEvent mfwMakeExitEvent(struct mfwWindow * window, uint64_t timestamp)
+extern mfwEvent mfwMakeWindowCreateEvent(struct mfwWindow * restrict window)
+{
+	mfwWindowCreateEvent windowCreate;
+	windowCreate.type = Event_WindowCreate;
+
+	windowCreate.window = window;
+
+	mfwEvent e;
+	e.windowCreate = windowCreate;
+	return e;
+}
+
+extern mfwEvent mfwMakeWindowExposeEvent(struct mfwWindow * restrict window)
+{
+	mfwWindowExposeEvent windowExpose;
+	windowExpose.type = Event_WindowExpose;
+
+	windowExpose.window = window;
+
+	mfwEvent e;
+	e.windowExpose = windowExpose;
+	return e;
+}
+
+extern mfwEvent mfwMakeWindowConfigureEvent(int32_t x, int32_t y, int32_t width, int32_t height, struct mfwWindow * restrict window)
+{
+	mfwWindowConfigureEvent windowConfigure;
+	windowConfigure.type = Event_WindowConfigure;
+
+	windowConfigure.x = x;
+	windowConfigure.y = y;
+	windowConfigure.width = width;
+	windowConfigure.height = height;
+	windowConfigure.window = window;
+
+	mfwEvent e;
+	e.windowConfigure = windowConfigure;
+	return e;
+}
+
+extern mfwEvent mfwMakeWindowExitEvent(struct mfwWindow * restrict window)
+{
+	mfwWindowExitEvent windowExit;
+	windowExit.type = Event_WindowExit;
+
+	windowExit.window = window;
+
+	mfwEvent e;
+	e.windowExit = windowExit;
+	return e;
+}
+
+extern mfwEvent mfwMakeExitEvent(uint64_t timestamp)
 {
 	mfwExitEvent exit;
 	exit.type = Event_Exit;
@@ -128,7 +195,7 @@ extern mfwEvent mfwMakeUnknownEvent()
 	return e;
 }
 
-extern void mfwInitEventQueue(struct mfwEventQueue * q)
+extern void mfwInitEventQueue(struct mfwEventQueue * restrict q)
 {
 	assert(q);
 
@@ -136,7 +203,7 @@ extern void mfwInitEventQueue(struct mfwEventQueue * q)
 	q->tail = NULL;
 };
 
-extern void mfwDestroyEventQueue(struct mfwEventQueue * q)
+extern void mfwDestroyEventQueue(struct mfwEventQueue * restrict q)
 {
 	if(!q) return;
 
@@ -161,7 +228,7 @@ extern struct mfwEventQueue * mfwNewEventQueue()
 	return q;
 }
 
-extern void mfwDeleteEventQueue(struct mfwEventQueue * q)
+extern void mfwDeleteEventQueue(struct mfwEventQueue * restrict q)
 {
 	if(!q) return;
 
@@ -169,7 +236,7 @@ extern void mfwDeleteEventQueue(struct mfwEventQueue * q)
 	free(q);
 }
 
-extern void mfwEventQueue_push(struct mfwEventQueue * q, mfwEvent event)
+extern void mfwEventQueue_push(struct mfwEventQueue * restrict q, mfwEvent event)
 {
 	assert(q);
 
@@ -185,14 +252,14 @@ extern void mfwEventQueue_push(struct mfwEventQueue * q, mfwEvent event)
 	}
 }
 
-extern mfwEvent mfwEventQueue_head(const struct mfwEventQueue * const q)
+extern mfwEvent mfwEventQueue_head(const struct mfwEventQueue * restrict const q)
 {
 	assert(q);
 
 	return q->head ? q->head->event : mfwMakeNoEvent();
 }
 
-extern mfwEvent mfwEventQueue_pop(struct mfwEventQueue * q)
+extern mfwEvent mfwEventQueue_pop(struct mfwEventQueue * restrict q)
 {
 	assert(q);
 
@@ -208,7 +275,7 @@ extern mfwEvent mfwEventQueue_pop(struct mfwEventQueue * q)
 	}
 }
 
-extern int mfwEventQueue_isEmpty(const struct mfwEventQueue * const q)
+extern int mfwEventQueue_isEmpty(const struct mfwEventQueue * restrict const q)
 {
 	assert(q);
 
@@ -219,7 +286,7 @@ extern int mfwEventQueue_isEmpty(const struct mfwEventQueue * const q)
 static struct mfwEventQueue sharedEventQueue = EVENT_QUEUE_STATIC_INITIALIZER;
 #undef EVENT_QUEUE_STATIC_INITIALIZER
 
-extern int mfwEvent_sharedQueue_next(mfwEvent * event)
+extern int mfwEvent_sharedQueue_next(mfwEvent * restrict event)
 {
 	if(mfwEventQueue_isEmpty(&sharedEventQueue)) {
 		if(event) *event = mfwMakeNoEvent();
@@ -230,7 +297,7 @@ extern int mfwEvent_sharedQueue_next(mfwEvent * event)
 	}
 }
 
-extern int mfwEvent_sharedQueue_peek(mfwEvent * event)
+extern int mfwEvent_sharedQueue_peek(mfwEvent * restrict event)
 {
 	if(mfwEventQueue_isEmpty(&sharedEventQueue) ) {
 		if(event) *event = mfwMakeNoEvent();

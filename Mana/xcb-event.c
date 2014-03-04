@@ -57,6 +57,18 @@ static inline void mapKeyPressEvent(struct mfwWindow * restrict window, xcb_key_
 	*e = mfwMakeKeyPressEvent(key, mod, x->event_x, x->event_y, window, (uint64_t)x->time);
 }
 
+static inline void mapKeyReleaseEvent(struct mfwWindow * restrict window, xcb_key_release_event_t * restrict x, mfwEvent * restrict e) {
+	const xcb_keysym_t sym = xcb_key_press_lookup_keysym(window->keysyms, x, 0);
+	const mfwKey key = makeKey((unsigned)sym);
+	const mfwMod mod = makeMod(x->state);
+	*e = mfwMakeKeyReleaseEvent(key, mod, x->event_x, x->event_y, window, (uint64_t)x->time);
+}
+
+static inline void mapMouseMotionEvent(struct mfwWindow * restrict window, xcb_motion_notify_event_t * restrict x, mfwEvent * restrict e) {
+	mfwMod mod = makeMod(x->state);
+	*e = mfwMakeMouseMotionEvent(x->event_x, x->event_y, mod, window, (uint64_t)x->time);
+}
+
 static const int MOUSE_SCROLL_UP = 1;
 static const int MOUSE_SCROLL_DOWN = -1;
 
@@ -88,6 +100,18 @@ static inline void mapMouseReleaseEvent(struct mfwWindow * restrict window, xcb_
 	*e = mfwMakeMouseReleaseEvent(x->event_x, x->event_y, mod, button, window, (uint64_t)x->time);
 }
 
+static inline void mapWindowCreateEvent(struct mfwWindow * restrict window, xcb_create_notify_event_t * restrict x, mfwEvent * restrict e) {
+}
+
+static inline void mapWindowExposeEvent(struct mfwWindow * restrict window, xcb_expose_event_t * restrict x, mfwEvent * restrict e) {
+}
+
+static inline void mapWindowConfigureEvent(struct mfwWindow * restrict window, xcb_config_window_t * restrict x, mfwEvent * restrict e) {
+}
+
+static inline void mapWindowExitEvent(struct mfwWindow * restrict window, xcb_destroy_notify_event_t * restrict x, mfwEvent * restrict e) {
+}
+
 static int mapEvent(struct mfwWindow * restrict window, xcb_generic_event_t * restrict x, mfwEvent * restrict e)
 {
 	assert(window);
@@ -95,10 +119,12 @@ static int mapEvent(struct mfwWindow * restrict window, xcb_generic_event_t * re
 	if(!(x && e)) return 0;
 
 	switch(x->response_type & ~0x80) {
-	case XCB_KEY_RELEASE: /* same as key press */
+	case XCB_MOTION_NOTIFY: mapMouseMotionEvent(window, (xcb_motion_notify_event_t *)x, e); return 1;
+	case XCB_KEY_RELEASE: mapKeyReleaseEvent(window, (xcb_key_release_event_t *)x, e); return 1;
 	case XCB_KEY_PRESS: mapKeyPressEvent(window, (xcb_key_press_event_t *)x, e); return 1;
 	case XCB_BUTTON_PRESS: mapMousePressEvent(window, (xcb_button_press_event_t *)x, e); return 1;
 	case XCB_BUTTON_RELEASE: mapMouseReleaseEvent(window, (xcb_button_release_event_t *)x, e); return 1;
+	case XCB_CREATE_NOTIFY: mapWindowCreateEvent(window, (xcb_create_notify_event_t *)x, e); return 1;
 	default: *e = mfwMakeUnknownEvent(); return 0;
 	}
 }

@@ -48,7 +48,7 @@
 
 /* GLContext Cocoa impl */
 
-extern void mfwInitGLContext(mfwGLContext * c, mfwWindow * w)
+extern void mfwInitGLContext(mfwGLContext * restrict c, mfwWindow * restrict w)
 {
 	assert(c);
 	assert(w);
@@ -70,7 +70,7 @@ extern void mfwInitGLContext(mfwGLContext * c, mfwWindow * w)
 	[(__bridge NSWindow *)w->nativeWindow flushWindow];
 }
 
-extern void mfwDestroyGLContext(mfwGLContext * c)
+extern void mfwDestroyGLContext(mfwGLContext * restrict c)
 {
 	if(!(c)) return;
 
@@ -80,7 +80,7 @@ extern void mfwDestroyGLContext(mfwGLContext * c)
 	}
 }
 
-extern mfwGLContext * mfwNewGLContext(mfwWindow * w)
+extern mfwGLContext * mfwNewGLContext(mfwWindow * restrict w)
 {
 	assert(w);
 
@@ -99,7 +99,7 @@ extern void mfwDeleteGLContext(mfwGLContext * c)
 	free(c);
 }
 
-extern const void * mfwGLContext_getNativeContext(mfwGLContext * c)
+extern const void * mfwGLContext_getNativeContext(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->nativeView);
@@ -107,7 +107,7 @@ extern const void * mfwGLContext_getNativeContext(mfwGLContext * c)
 	return (__bridge const void *)[(__bridge NSOpenGLView *)c->nativeView openGLContext];
 }
 
-extern void mfwGLContext_makeCurrent(mfwGLContext * c)
+extern void mfwGLContext_makeCurrent(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->nativeView);
@@ -115,7 +115,7 @@ extern void mfwGLContext_makeCurrent(mfwGLContext * c)
 	[[(__bridge NSOpenGLView *)c->nativeView openGLContext] makeCurrentContext];
 }
 
-extern void mfwGLContext_swapBuffers(mfwGLContext * c)
+extern void mfwGLContext_swapBuffers(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->nativeView);
@@ -123,7 +123,7 @@ extern void mfwGLContext_swapBuffers(mfwGLContext * c)
 	[[(__bridge NSOpenGLView *)c->nativeView openGLContext] flushBuffer];
 }
 
-extern void mfwGLContext_lock(mfwGLContext * c)
+extern void mfwGLContext_lock(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->nativeView);
@@ -131,7 +131,7 @@ extern void mfwGLContext_lock(mfwGLContext * c)
 	CGLLockContext([[(__bridge NSOpenGLView *)c->nativeView openGLContext] CGLContextObj]);
 }
 
-extern void mfwGLContext_unlock(mfwGLContext * c)
+extern void mfwGLContext_unlock(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->nativeView);
@@ -143,7 +143,7 @@ extern void mfwGLContext_unlock(mfwGLContext * c)
 
 static const size_t MAX_TITLE_SIZE = 256;
 
-extern void mfwWindow_setTitle(mfwWindow * w, const char * title)
+extern void mfwWindow_setTitle(mfwWindow * restrict w, const char * restrict title)
 {
 	char t[MAX_TITLE_SIZE];
 	strncpy(t, title, MAX_TITLE_SIZE);
@@ -151,7 +151,7 @@ extern void mfwWindow_setTitle(mfwWindow * w, const char * title)
 	[(__bridge NSWindow *)w->nativeWindow setTitle:[NSString stringWithUTF8String:t]];
 }
 
-extern void mfwInitWindow(mfwWindow * w, const char * title, recti frame)
+extern void mfwInitWindow(mfwWindow * restrict w, const char * restrict title, recti frame)
 {
 	assert(w);
 	memset(w, 0x0, sizeof(mfwWindow));
@@ -168,7 +168,7 @@ extern void mfwInitWindow(mfwWindow * w, const char * title, recti frame)
 	[nativeWindow makeKeyAndOrderFront:nativeWindow];
 }
 
-extern void mfwInitWindowFullscreen(mfwWindow * w)
+extern void mfwInitWindowFullscreen(mfwWindow * restrict w)
 {
 	assert(w);
 
@@ -183,7 +183,7 @@ extern void mfwInitWindowFullscreen(mfwWindow * w)
 	[nativeWindow makeKeyAndOrderFront:nativeWindow];
 }
 
-extern void mfwDestroyWindow(mfwWindow * w)
+extern void mfwDestroyWindow(mfwWindow * restrict w)
 {
 	if(!(w)) return;
 
@@ -193,7 +193,7 @@ extern void mfwDestroyWindow(mfwWindow * w)
 	}
 }
 
-extern mfwWindow * mfwNewWindow(const char * title, recti frame)
+extern mfwWindow * mfwNewWindow(const char * restrict title, recti frame)
 {
 	mfwWindow * w = NULL;
 	if((w = emalloc(sizeof(mfwWindow)))) {
@@ -211,7 +211,7 @@ extern mfwWindow * mfwNewWindowFullscreen()
 	return w;
 }
 
-extern void mfwDeleteWindow(mfwWindow * w)
+extern void mfwDeleteWindow(mfwWindow * restrict w)
 {
 	if(!(w)) return;
 
@@ -219,7 +219,7 @@ extern void mfwDeleteWindow(mfwWindow * w)
 	free(w);
 }
 
-extern recti mfwWindow_getFrame(const mfwWindow * w)
+extern recti mfwWindow_getFrame(const mfwWindow * restrict w)
 {
 	assert(w);
 	assert(w->nativeWindow);
@@ -230,7 +230,7 @@ extern recti mfwWindow_getFrame(const mfwWindow * w)
 	return f;
 }
 
-extern void mfwWindow_setFrame(mfwWindow * w, recti frame)
+extern void mfwWindow_setFrame(mfwWindow * restrict w, recti frame)
 {
 	assert(w);
 	assert(w->nativeWindow);
@@ -239,12 +239,12 @@ extern void mfwWindow_setFrame(mfwWindow * w, recti frame)
 	[(__bridge NSWindow *)w->nativeWindow setFrame:f display:YES animate:YES];
 }
 
-extern void mfwWindow_setFullscreen(mfwWindow * w, int fullscreen)
+extern void mfwWindow_setFullscreen(mfwWindow * restrict w, int fullscreen)
 {
 	assert(w);
 }
 
-extern void mfwWindow_bringToFront(mfwWindow * w)
+extern void mfwWindow_bringToFront(mfwWindow * restrict w)
 {
 	assert(w);
 	assert(w->nativeWindow);
@@ -253,7 +253,7 @@ extern void mfwWindow_bringToFront(mfwWindow * w)
 	[nativeWindow makeKeyAndOrderFront:nativeWindow];
 }
 
-extern void mfwWindow_update(mfwWindow * w)
+extern void mfwWindow_update(mfwWindow * restrict w)
 {
 	assert(w);
 	assert(w->nativeWindow);

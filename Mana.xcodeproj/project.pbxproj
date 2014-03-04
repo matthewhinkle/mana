@@ -363,7 +363,10 @@
 					/usr/X11/lib,
 					/opt/X11/lib,
 				);
-				OTHER_CFLAGS = "-DMANA_USE_X11";
+				OTHER_CFLAGS = (
+					"-DMANA_USE_X11",
+					"-DMANA_USE_X11_XCB",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../Common";
@@ -387,7 +390,10 @@
 					/usr/X11/lib,
 					/opt/X11/lib,
 				);
-				OTHER_CFLAGS = "-DMANA_USE_X11";
+				OTHER_CFLAGS = (
+					"-DMANA_USE_X11",
+					"-DMANA_USE_X11_XCB",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../Common";

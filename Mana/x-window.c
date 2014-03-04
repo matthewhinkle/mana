@@ -12,7 +12,7 @@
 
 /* GLContext X11 impl */
 
-extern void mfwInitGLContext(mfwGLContext * c, mfwWindow * w)
+extern void mfwInitGLContext(mfwGLContext * restrict c, mfwWindow * restrict w)
 {
 	assert(c);
 	assert(w);
@@ -23,7 +23,7 @@ extern void mfwInitGLContext(mfwGLContext * c, mfwWindow * w)
 	assert(c->native);
 }
 
-extern void mfwDestroyGLContext(mfwGLContext * c)
+extern void mfwDestroyGLContext(mfwGLContext * restrict c)
 {
 	if(!(c)) return;
 
@@ -33,7 +33,7 @@ extern void mfwDestroyGLContext(mfwGLContext * c)
 	}
 }
 
-extern mfwGLContext * mfwNewGLContext(mfwWindow * w)
+extern mfwGLContext * mfwNewGLContext(mfwWindow * restrict w)
 {
 	mfwGLContext * c = NULL;
 	if((c = emalloc(sizeof(mfwGLContext)))) {
@@ -42,7 +42,7 @@ extern mfwGLContext * mfwNewGLContext(mfwWindow * w)
 	return c;
 }
 
-extern void mfwDeleteGLContext(mfwGLContext * c)
+extern void mfwDeleteGLContext(mfwGLContext * restrict c)
 {
 	if(!(c)) return;
 
@@ -50,7 +50,7 @@ extern void mfwDeleteGLContext(mfwGLContext * c)
 	free(c);
 }
 
-extern const void * mfwGLContext_getNativeContext(mfwGLContext * c)
+extern const void * mfwGLContext_getNativeContext(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->native);
@@ -58,7 +58,7 @@ extern const void * mfwGLContext_getNativeContext(mfwGLContext * c)
 	return c->native;
 }
 
-extern void mfwGLContext_makeCurrent(mfwGLContext * c)
+extern void mfwGLContext_makeCurrent(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -68,7 +68,7 @@ extern void mfwGLContext_makeCurrent(mfwGLContext * c)
 	glXMakeContextCurrent(c->display, c->drawable, c->drawable, c->native);
 }
 
-extern void mfwGLContext_swapBuffers(mfwGLContext * c)
+extern void mfwGLContext_swapBuffers(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -77,14 +77,14 @@ extern void mfwGLContext_swapBuffers(mfwGLContext * c)
 	glXSwapBuffers(c->display, c->drawable);
 }
 
-extern void mfwGLContext_lock(mfwGLContext * c)
+extern void mfwGLContext_lock(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
 	XLockDisplay(c->display);
 }
 
-extern void mfwGLContext_unlock(mfwGLContext * c)
+extern void mfwGLContext_unlock(mfwGLContext * restrict c)
 {
 	assert(c);
 	assert(c->display);
@@ -105,10 +105,10 @@ static XVisualInfo * get_visualInfo(mfwWindow * restrict w)
 	return glXChooseVisual(w->display, w->screen, VI_ATTR);
 }
 
-static const unsigned long EVENT_MASK = ExposureMask | KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask;
-static const unsigned long VALUE_MASK =  CWBackPixel | CWBorderPixel | CWColormap | CWEventMask;
+static const unsigned long EVENT_MASK = ExposureMask | KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | ButtonMotionMask | PointerMotionMask | PointerMotionHintMask;
+static const unsigned long VALUE_MASK =  CWBackPixel | CWBorderPixel | CWColormap | CWCursor | CWEventMask;
 
-static Display * openDisplay(char * name)
+static Display * openDisplay(char * restrict name)
 {
 	int event = 0;
 	int error = 0;
@@ -129,7 +129,7 @@ static Display * openDisplay(char * name)
 	return XOpenDisplay(name);
 }
 
-static void initWindow(mfwWindow * w, recti * frame)
+static void initWindow(mfwWindow * restrict w, recti * restrict frame)
 {
 	w->display = openDisplay(NULL);
 	assert(w->display);
@@ -180,7 +180,7 @@ static const uint8_t PROPERTY_FORMAT_SIZE_8 = 8;
 static const uint8_t PROPERTY_FORMAT_SIZE_32 = 32;
 static const uint32_t MAX_TITLE_LEN = 128;
 
-extern void mfwWindow_setTitle(struct mfwWindow * w, const char * title) {
+extern void mfwWindow_setTitle(struct mfwWindow * restrict w, const char * restrict title) {
 	assert(w);
 	assert(w->display);
 	assert(w->window);
@@ -202,7 +202,7 @@ extern void mfwWindow_setTitle(struct mfwWindow * w, const char * title) {
 	XFlush(w->display);
 }
 
-extern void mfwWindow_setFrame(struct mfwWindow * w, recti frame)
+extern void mfwWindow_setFrame(struct mfwWindow * restrict w, recti frame)
 {
 	assert(w);
 	assert(w->display);
@@ -219,7 +219,7 @@ extern void mfwWindow_setFrame(struct mfwWindow * w, recti frame)
 	XFlush(w->display);
 }
 
-extern void mfwInitWindow(mfwWindow * w, const char * title, recti frame)
+extern void mfwInitWindow(mfwWindow * restrict w, const char * restrict title, recti frame)
 {
 	assert(w);
 
@@ -249,7 +249,7 @@ static const uint32_t HINTS_WINDOWED[] = {
 		0		/* status: unused */
 	};
 
-static void mfwWindow_setFullscreen_internal(mfwWindow * w, int fullscreen) {
+static void mfwWindow_setFullscreen_internal(mfwWindow * restrict w, int fullscreen) {
 	assert(w);
 
 	Atom prop = XInternAtom(w->display, "_MOTIF_WM_HINTS", True);
@@ -268,7 +268,7 @@ static void mfwWindow_setFullscreen_internal(mfwWindow * w, int fullscreen) {
 		hintCount);
 }
 
-extern void mfwInitWindowFullscreen(mfwWindow * w)
+extern void mfwInitWindowFullscreen(mfwWindow * restrict w)
 {
 	assert(w);
 
@@ -278,7 +278,7 @@ extern void mfwInitWindowFullscreen(mfwWindow * w)
 	XFlush(w->display);
 }
 
-extern void mfwDestroyWindow(mfwWindow * w)
+extern void mfwDestroyWindow(mfwWindow * restrict w)
 {
 	if(!w) return;
 
@@ -292,7 +292,7 @@ extern void mfwDestroyWindow(mfwWindow * w)
 	}
 }
 
-extern mfwWindow * mfwNewWindow(const char * title, struct recti frame) {
+extern mfwWindow * mfwNewWindow(const char * restrict title, struct recti frame) {
 	mfwWindow * w = NULL;
 	if((w = emalloc(sizeof(mfwWindow)))) {
 		mfwInitWindow(w, title, frame);
@@ -309,7 +309,7 @@ extern mfwWindow * mfwNewWindowFullscreen()
 	return w;
 }
 
-extern void mfwDeleteWindow(mfwWindow * w)
+extern void mfwDeleteWindow(mfwWindow * restrict w)
 {
 	if(!w) return;
 
@@ -317,7 +317,7 @@ extern void mfwDeleteWindow(mfwWindow * w)
 	free(w);
 }
 
-extern recti mfwWindow_getFrame(const mfwWindow * w)
+extern recti mfwWindow_getFrame(const mfwWindow * restrict w)
 {
 	assert(w);
 
@@ -330,7 +330,7 @@ enum {
 	_NET_WM_STATE_TOGGLE = 2
 };
 
-extern void mfwWindow_setFullscreen(mfwWindow * w, int fullscreen)
+extern void mfwWindow_setFullscreen(mfwWindow * restrict w, int fullscreen)
 {
 	assert(w);
 	assert(w->display);
@@ -363,7 +363,7 @@ extern void mfwWindow_setFullscreen(mfwWindow * w, int fullscreen)
 	XFlush(w->display);
 }
 
-extern void mfwWindow_bringToFront(mfwWindow * w)
+extern void mfwWindow_bringToFront(mfwWindow * restrict w)
 {
 	assert(w);
 	assert(w->display);
@@ -374,6 +374,6 @@ extern void mfwWindow_bringToFront(mfwWindow * w)
 	XFlush(w->display);
 }
 
-extern void mfwWindow_update(mfwWindow * w) { }
+extern void mfwWindow_update(mfwWindow * restrict w) { }
 
 #endif

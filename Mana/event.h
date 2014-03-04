@@ -21,15 +21,20 @@
 struct mfwWindow;
 union mfwEvent;
 
-static const uint16_t Event_None = 0;
-static const uint16_t Event_Any = 1 << 0;
-static const uint16_t Event_KeyPress = 1 << 1;
-static const uint16_t Event_KeyRelease = 1 << 2;
-static const uint16_t Event_MousePress = 1 << 3;
-static const uint16_t Event_MouseRelease = 1 << 4;
-static const uint16_t Event_MouseScroll = 1 << 5;
-static const uint16_t Event_Exit = 1 << 6;
-static const uint16_t Event_Unknown = 1 << 15;
+static const unsigned Event_None = 0;
+static const unsigned Event_Any = 1 << 0;
+static const unsigned Event_KeyPress = 1 << 1;
+static const unsigned Event_KeyRelease = 1 << 2;
+static const unsigned Event_MouseMotion = 1 << 3;
+static const unsigned Event_MousePress = 1 << 4;
+static const unsigned Event_MouseRelease = 1 << 5;
+static const unsigned Event_MouseScroll = 1 << 6;
+static const unsigned Event_WindowCreate = 1 << 7;
+static const unsigned Event_WindowExpose = 1 << 8;
+static const unsigned Event_WindowConfigure = 1 << 9;
+static const unsigned Event_WindowExit = 1 << 10;
+static const unsigned Event_Exit = 1 << 11;
+static const unsigned Event_Unknown = 1 << 12;
 
 /*
  * No event
@@ -37,7 +42,7 @@ static const uint16_t Event_Unknown = 1 << 15;
  * EventType_NoEvent is returned in the absense of events.
  */
 typedef struct {
-	uint16_t type;	/* Event_None */
+	unsigned type;	/* Event_None */
 	uint64_t timestamp;
 } mfwNoEvent;
 
@@ -49,7 +54,7 @@ extern union mfwEvent mfwMakeNoEvent();
  * Represents any event.
  */
 typedef struct {
-	uint16_t type;	/* Event_Any */
+	unsigned type;	/* Event_Any */
 	uint64_t timestamp;
 } mfwAnyEvent;
 
@@ -59,7 +64,7 @@ typedef struct {
  * Keyboard press and release events.
  */
 typedef struct {
-	uint16_t type; /* Event_KeyPress */
+	unsigned type; /* Event_KeyPress */
 	uint64_t timestamp;
 	mfwKey key;
 	mfwMod modifiers;
@@ -69,7 +74,7 @@ typedef struct {
 } mfwKeyPressEvent;
 
 typedef struct {
-	uint16_t type;	/* Event_KeyRelease */
+	unsigned type;	/* Event_KeyRelease */
 	uint64_t timestamp;
 	mfwKey key;
 	mfwMod modifiers;
@@ -78,16 +83,25 @@ typedef struct {
 	struct mfwWindow * window;
 } mfwKeyReleaseEvent;
 
-extern union mfwEvent mfwMakeKeyPressEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * window, uint64_t timestamp);
-extern union mfwEvent mfwMakeKeyReleaseEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * window, uint64_t timestamp);
+extern union mfwEvent mfwMakeKeyPressEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * restrict window, uint64_t timestamp);
+extern union mfwEvent mfwMakeKeyReleaseEvent(mfwKey key, mfwMod modifiers, int32_t x, int32_t y, struct mfwWindow * restrict window, uint64_t timestamp);
 
 /*
  * Mouse event
  * --
- * Mouse press and release events.
+ * Mouse motion and press/release events.
  */
 typedef struct {
-	uint16_t type;	/* Event_MousePress */
+	unsigned type;	/* Event_MouseMotion */
+	uint64_t timestamp;
+	int32_t x;
+	int32_t y;
+	mfwMod modifiers;
+	struct mfwWindow * window;
+} mfwMouseMotionEvent;
+
+typedef struct {
+	unsigned type;	/* Event_MousePress */
 	uint64_t timestamp;
 	int32_t x;
 	int32_t y;
@@ -97,7 +111,7 @@ typedef struct {
 } mfwMousePressEvent;
 
 typedef struct {
-	uint16_t type;	/* Event_MouseRelease */
+	unsigned type;	/* Event_MouseRelease */
 	uint64_t timestamp;
 	int32_t x;
 	int32_t y;
@@ -107,7 +121,7 @@ typedef struct {
 } mfwMouseReleaseEvent;
 
 typedef struct {
-	uint16_t type;	/* Event_MouseScroll */
+	unsigned type;	/* Event_MouseScroll */
 	uint64_t timestamp;
 	int xDelta;
 	int yDelta;
@@ -116,9 +130,44 @@ typedef struct {
 	struct mfwWindow * window;
 } mfwMouseScrollEvent;
 
-extern union mfwEvent mfwMakeMousePressEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * window, uint64_t timestamp);
-extern union mfwEvent mfwMakeMouseReleaseEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * window, uint64_t timestamp);
-extern union mfwEvent mfwMakeMouseScrollEvent(mfwMod modifiers, int xDelta, int yDelta, int zDelta, struct mfwWindow * window, uint64_t timestamp);
+extern union mfwEvent mfwMakeMouseMotionEvent(int32_t x, int32_t y, mfwMod modifiers, struct mfwWindow * restrict window, uint64_t timestamp);
+extern union mfwEvent mfwMakeMousePressEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * restrict window, uint64_t timestamp);
+extern union mfwEvent mfwMakeMouseReleaseEvent(int32_t x, int32_t y, mfwMod modifiers, mfwButton button, struct mfwWindow * restrict window, uint64_t timestamp);
+extern union mfwEvent mfwMakeMouseScrollEvent(mfwMod modifiers, int xDelta, int yDelta, int zDelta, struct mfwWindow * restrict window, uint64_t timestamp);
+
+/*
+ * Window event
+ * --
+ * Window lifetime and configuration events.
+ */
+typedef struct {
+	unsigned type;	/* Event_WindowCreate */
+	struct mfwWindow * window;
+} mfwWindowCreateEvent;
+
+typedef struct {
+	unsigned type;	/* Event_WindowExpose */
+	struct mfwWindow * window;
+} mfwWindowExposeEvent;
+
+typedef struct {
+	unsigned type;	/* Event_WindowMove */
+	int32_t x;
+	int32_t y;
+	int32_t width;
+	int32_t height;
+	struct mfwWindow * window;
+} mfwWindowConfigureEvent;
+
+typedef struct {
+	unsigned type;	/* Event_WindowExit */
+	struct mfwWindow * window;
+} mfwWindowExitEvent;
+
+extern union mfwEvent mfwMakeWindowCreateEvent(struct mfwWindow * restrict window);
+extern union mfwEvent mfwMakeWindowExposeEvent(struct mfwWindow * restrict window);
+extern union mfwEvent mfwMakeWindowConfigureEvent(int32_t x, int32_t y, int32_t width, int32_t height, struct mfwWindow * restrict window);
+extern union mfwEvent mfwMakeWindowExitEvent(struct mfwWindow * restrict window);
 
 /*
  * Exit event
@@ -126,12 +175,11 @@ extern union mfwEvent mfwMakeMouseScrollEvent(mfwMod modifiers, int xDelta, int 
  * Event sent when a window is exiting.
  */
 typedef struct {
-	uint16_t type;	/* Event_Exit */
+	unsigned type;	/* Event_Exit */
 	uint64_t timestamp;
-	struct mfwWindow * window;
 } mfwExitEvent;
 
-extern union mfwEvent mfwMakeExitEvent(struct mfwWindow * window, uint64_t timestamp);
+extern union mfwEvent mfwMakeExitEvent(uint64_t timestamp);
 
 /*
  * Unknown event
@@ -140,21 +188,26 @@ extern union mfwEvent mfwMakeExitEvent(struct mfwWindow * window, uint64_t times
  * event is encountered.
  */
 typedef struct {
-	uint16_t type;	/* Event_Unknown */
+	unsigned type;	/* Event_Unknown */
 	uint64_t timestamp;
 } mfwUnknownEvent;
 
 extern union mfwEvent mfwMakeUnknownEvent();
 
 typedef union mfwEvent {
-	uint16_t type;
+	unsigned type;
 	mfwNoEvent noEvent;
 	mfwAnyEvent anyEvent;
 	mfwKeyPressEvent keyPress;
 	mfwKeyReleaseEvent keyRelease;
+	mfwMouseMotionEvent mouseMotion;
 	mfwMousePressEvent mousePress;
 	mfwMouseReleaseEvent mouseRelease;
 	mfwMouseScrollEvent mouseScroll;
+	mfwWindowCreateEvent windowCreate;
+	mfwWindowExposeEvent windowExpose;
+	mfwWindowConfigureEvent windowConfigure;
+	mfwWindowExitEvent windowExit;
 	mfwExitEvent exit;
 	mfwUnknownEvent unknown;
 } mfwEvent;
